@@ -25,8 +25,9 @@ const server = http.createServer((req,res)=>{
             res.end(data);
         });
     }
+
     else if(req.url === "/script.js"){
-        
+
         res.setHeader("Content-Type","application/javascript");
 
         const filepath  = path.join(__dirname,"public","script.js");
@@ -41,6 +42,8 @@ const server = http.createServer((req,res)=>{
             }
         });
     }
+
+
     else{
         res.statusCode = 404;
         res.end("404 Error");
