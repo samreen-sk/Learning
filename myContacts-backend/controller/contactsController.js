@@ -1,14 +1,15 @@
 const asynchandler = require("../utils/asynchandler");
-
+const Contact = require("../models/contactsModel");
 // desc : fetch all contacts
 // path : /api/contacts (get)
-const getAllContacts = asynchandler((req,res)=>{
-    res.status(200).json({message : "get all the contacts"});
+const getAllContacts = asynchandler(async (req,res)=>{
+    const contacts = await Contact.find();
+    res.status(200).json(contacts);
 });
 
 // desc : create contact
 // path : /api/contacts (post)
-const createContact = asynchandler((req,res)=>{
+const createContact = asynchandler(async(req,res)=>{
     const {name, email, number} = req.body;
     if(!name || !email || !number){
 
@@ -16,28 +17,53 @@ const createContact = asynchandler((req,res)=>{
         throw new Error("The details cant be empty");
 
     }
-    res.status(200).json({mesaage : "create a contact"});
+    const contact = await Contact.create({
+        name,
+        email,
+        number
+    });
+    res.status(200).json(contact);
 });
 
 // desc : fetch a contact by id 
 // path : /api/contacts/:id (get)
 
-const getContact = asynchandler((req,res)=>{
-    res.status(200).json({message : `get the contact of the ${req.params.id}`});
+const getContact = asynchandler(async(req,res)=>{
+    const contact = await Contact.findById(req.params.id);
+    if(!contact){
+        res.status(404);
+        throw new Error("Contact not found");
+        
+    }
+    res.status(200).json(contact);
 });
 
 // desc : update a contact by id 
 // path : /api/contacts/:id (put)
 
-const updateContact = asynchandler((req,res)=>{
-    res.status(200).json({message : `the contact has ${req.params.id} been modified `});
+const updateContact = asynchandler(async(req,res)=>{
+    const contact = await Contact.findById(req.params.id);
+    if(!contact){
+        res.status(404);
+        throw new Error("Contact not found");
+        
+    }
+    const updatedContact = await Contact.findByIdAndUpdate(req.params.id,req.body,{new : true});
+    res.status(200).json(updatedContact);
 });
 
 // desc : delete a contact by id 
 // path : /api/contacts/:id (delete)
 
-const deleteContact = asynchandler((req,res)=>{
-    res.status(200).json({message : `the contact of ${req.params.id} has been deleted`});
+const deleteContact = asynchandler(async (req,res)=>{
+    const contact = await Contact.findById(req.params.id);
+    if(!contact){
+        res.status(404);
+        throw new Error("Contact not found");
+        
+    }
+    const deletedContact = await Contact.findByIdAndDelete(req.params.id);
+    res.status(200).json(deletedContact);
 });
 
 module.exports = {
