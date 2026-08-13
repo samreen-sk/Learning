@@ -10,7 +10,7 @@ app.use(express.json()); // middleware
 const port = process.env.PORT || 5000;
 
 app.use("/api/contacts",require("./routers/contactRoutes"));
-
+app.use("/api/users",require("./routers/userRoutes"));
 app.use(errorHandler);
 
 app.listen(port,()=>{

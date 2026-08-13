@@ -3,7 +3,7 @@ const Contact = require("../models/contactsModel");
 // desc : fetch all contacts
 // path : /api/contacts (get)
 const getAllContacts = asynchandler(async (req,res)=>{
-    const contacts = await Contact.find();
+    const contacts = await Contact.find({user_id : req.user.id});
     res.status(200).json(contacts);
 });
 
@@ -12,7 +12,6 @@ const getAllContacts = asynchandler(async (req,res)=>{
 const createContact = asynchandler(async(req,res)=>{
     const {name, email, number} = req.body;
     if(!name || !email || !number){
-
         res.status(400);
         throw new Error("The details cant be empty");
 
@@ -20,7 +19,8 @@ const createContact = asynchandler(async(req,res)=>{
     const contact = await Contact.create({
         name,
         email,
-        number
+        number,
+        user_id : req.user.id
     });
     res.status(200).json(contact);
 });
@@ -48,6 +48,10 @@ const updateContact = asynchandler(async(req,res)=>{
         throw new Error("Contact not found");
         
     }
+    if(contact.user_id.toString() !==req.user.id){
+        res.status(401);
+        throw new Error("Unauthorized Access and you can't update");
+    }
     const updatedContact = await Contact.findByIdAndUpdate(req.params.id,req.body,{new : true});
     res.status(200).json(updatedContact);
 });
@@ -62,6 +66,11 @@ const deleteContact = asynchandler(async (req,res)=>{
         throw new Error("Contact not found");
         
     }
+    if(contact.user_id.toString() !==req.user.id){
+        res.status(401);
+        throw new Error("Unauthorized Access and you can't update");
+    }
+    
     const deletedContact = await Contact.findByIdAndDelete(req.params.id);
     res.status(200).json(deletedContact);
 });
