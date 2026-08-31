@@ -14,7 +14,6 @@ const createContact = asynchandler(async(req,res)=>{
     if(!name || !email || !number){
         res.status(400);
         throw new Error("The details cant be empty");
-
     }
     const contact = await Contact.create({
         name,
