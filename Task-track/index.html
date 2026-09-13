@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Task maker</title>
+    </head>
+    <body>
+        <h1>
+            Tasks
+        </h1>
+        <label for="taskInput">enter task </label>
+        <input type="text" id = "taskInput">
+        <select id = "priority">
+            <option value = "low">low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+
+        <button id = "addButton"> add task </button>
+
+        <h2>pending</h2>
+        <div id = "pendingId">
+
+        </div>
+        <h2>completed</h2>
+        <div id = "completedId">
+
+        </div>
+        <h2>All Counts</h2>
+            <p>Total Tasks : <span id="totalTask">0</span></p>
+            <p>Pending Tasks : <span id="pendingTask">0</span></p>
+            <p>Completed Tasks : <span id="completedTask">0</span></p>
+        <script src = "script.js"></script>
+    </body>
+</html>
