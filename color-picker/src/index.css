@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f3f4f6;
+}
+
+.color-picker-container {
+    width: 350px;
+    padding: 30px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    text-align: center;
+}
+
+.color-picker-container h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #222;
+}
+
+.color-display {
+    height: 180px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    border: 2px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+.color-display p {
+    background: rgba(0, 0, 0, 0.65);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.color-picker-container label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.color-picker-container input[type="color"] {
+    width: 100px;
+    height: 50px;
+    padding: 3px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #eee;
+}
+
+.color-picker-container input[type="color"]:hover {
+    transform: scale(1.05);
+    transition: 0.2s ease;
+}
